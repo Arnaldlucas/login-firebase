@@ -36,6 +36,18 @@ const firebaseConfig = {
     const password = document.getElementById("new-password").value;
     const confirmPassword = document.getElementById("confirm-password").value;
   
+    // Regras mínimas
+    const isStrongEnough =
+      password.length >= 6 &&
+      /[A-Z]/.test(password) &&
+      /[0-9]/.test(password) &&
+      /[\W_]/.test(password);
+  
+    if (!isStrongEnough) {
+      alert("A senha está muito fraca. Use uma senha mais forte com número, símbolo e letra maiúscula.");
+      return;
+    }
+  
     if (password !== confirmPassword) {
       alert("As senhas não coincidem.");
       return;
@@ -45,7 +57,7 @@ const firebaseConfig = {
       .then(userCredential => {
         const user = userCredential.user;
         document.getElementById("status").innerText = `Usuário criado: ${user.email}`;
-        showLogin(); // volta pro login
+        showLogin();
       })
       .catch(error => {
         console.error(error);
@@ -151,20 +163,41 @@ auth.onAuthStateChanged(user => {
     const password = document.getElementById("new-password").value;
     const bars = document.querySelectorAll(".bar");
     const label = document.getElementById("strength-label");
+    const hints = document.getElementById("password-hints");
   
     let strength = 0;
+    let hintsList = [];
   
-    if (password.length >= 6) strength++;
-    if (/[A-Z]/.test(password)) strength++;
-    if (/[0-9]/.test(password)) strength++;
-    if (/[\W_]/.test(password)) strength++;
+    // Regras de senha
+    const rules = [
+      {
+        test: password.length >= 6,
+        label: "Mínimo 6 caracteres"
+      },
+      {
+        test: /[A-Z]/.test(password),
+        label: "Letra maiúscula"
+      },
+      {
+        test: /[0-9]/.test(password),
+        label: "Número"
+      },
+      {
+        test: /[\W_]/.test(password),
+        label: "Símbolo especial (!@#...)"
+      }
+    ];
   
-    // Limpa classes
+    // Limpa classes antigas
     bars.forEach(bar => bar.className = "bar");
   
-    // Define cor e label
-    let colorClass = "";
-    let strengthText = "";
+    // Define cor e texto
+    rules.forEach(rule => {
+      if (rule.test) strength++;
+      hintsList.push(`<li class="${rule.test ? "ok" : "missing"}">${rule.label}</li>`);
+    });
+  
+    let colorClass = "", strengthText = "";
   
     if (strength <= 1) {
       colorClass = "weak";
@@ -177,12 +210,13 @@ auth.onAuthStateChanged(user => {
       strengthText = "Forte";
     }
   
-    // Ativa a quantidade de barras com a cor certa
     for (let i = 0; i < strength; i++) {
       bars[i].classList.add("active", colorClass);
     }
   
     label.textContent = `Senha ${strengthText}`;
     label.style.color = getComputedStyle(document.querySelector(`.bar.active.${colorClass}`)).backgroundColor;
-  }
   
+    hints.innerHTML = hintsList.join('');
+  }
+   
