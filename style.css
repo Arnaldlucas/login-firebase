@@ -108,4 +108,37 @@
     font-size: 16px;
     opacity: 0.8;
   }
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+      width: 90%;
+      height: auto;
+      margin: 20px 0;
+    }
+  
+    .login-form,
+    .welcome-panel {
+      flex: none;
+      width: 100%;
+      padding: 30px;
+    }
+  
+    .welcome-panel h1 {
+      font-size: 24px;
+    }
+  
+    .welcome-panel p {
+      font-size: 14px;
+    }
+  
+    .login-form h2 {
+      font-size: 22px;
+    }
+  
+    .login-form button,
+    #google-btn {
+      font-size: 14px;
+    }
+  }
+  
   
