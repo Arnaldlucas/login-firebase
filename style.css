@@ -1,114 +1,143 @@
+/* Reset e configuração base */
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  
-  body {
-    font-family: 'Segoe UI', sans-serif;
-    height: 100vh;
-    background: #f0f0f0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .container {
-    display: flex;
-    width: 800px;
-    height: 500px;
-    background: #fff;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-  }
-  
-  .login-form {
-    flex: 1;
-    padding: 40px;
-    background: #fff;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  
-  .login-form h2 {
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  .login-form input {
-    padding: 12px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .login-form button {
-    padding: 12px;
-    background-color: #0033cc;
-    color: white;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
-  }
-  
-  .login-form button:hover {
-    background-color: #001f80;
-  }
-  
-  .login-form a {
-    text-decoration: none;
-    color: #0033cc;
-    font-size: 14px;
-  }
-  
-  .login-form .forgot {
-    align-self: flex-end;
-    margin-bottom: 10px;
-  }
-  
-  #google-btn {
-    background: white;
-    color: #444;
-    border: 1px solid #ccc;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 15px;
-  }
-  
-  #google-btn img {
-    width: 20px;
-    height: 20px;
-  }
-  
-  /* Painel direito */
-  .welcome-panel {
-    flex: 1;
-    background: linear-gradient(135deg, #0b1e63, #001f80);
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 40px;
-    text-align: center;
-  }
-  
-  .welcome-panel h1 {
-    font-size: 32px;
-    margin-bottom: 10px;
-  }
-  
-  .welcome-panel p {
-    font-size: 16px;
-    opacity: 0.8;
-  }
-  @media (max-width: 768px) {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  height: 100vh;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Container geral do layout (lado esquerdo login, lado direito painel) */
+.container {
+  display: flex;
+  width: 800px;
+  height: 500px;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+/* Painel esquerdo (formulário de login/cadastro) */
+.login-form {
+  flex: 1;
+  padding: 40px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.login-form h2 {
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 24px;
+}
+
+.login-form input {
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.login-form button,
+#google-btn,
+.form-inner input {
+  width: 100%;
+  max-width: 280px;
+}
+
+.login-form button {
+  padding: 12px;
+  background-color: #0033cc;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.login-form button:hover {
+  background-color: #001f80;
+}
+
+.login-form a {
+  text-decoration: none;
+  color: #0033cc;
+  font-size: 14px;
+}
+
+.login-form .forgot {
+  align-self: flex-end;
+  margin-bottom: 10px;
+}
+
+/* Botão Google */
+.google-button-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  width: 100%;
+}
+
+#google-btn {
+  background: white;
+  color: #444;
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+#google-btn img {
+  width: 20px;
+  height: 20px;
+}
+
+/* Painel direito */
+.welcome-panel {
+  flex: 1;
+  background: linear-gradient(135deg, #0b1e63, #001f80);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  text-align: center;
+}
+
+.welcome-panel h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.welcome-panel p {
+  font-size: 16px;
+  opacity: 0.8;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
   .container {
     flex-direction: column;
     width: 90%;
@@ -134,151 +163,111 @@
   .login-form h2 {
     font-size: 22px;
   }
-
-  .login-form button,
-  #google-btn {
-    font-size: 14px;
-  }
 }
+
+/* Alternância entre login/cadastro */
 .form-section {
-    display: none;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.4s ease;
-  }
-  
-  .form-section.active {
-    display: block;
-    opacity: 1;
-    transform: translateY(0);
-  }
-  
-  label {
-    font-size: 14px;
-    margin-bottom: 4px;
-    color: #333;
-    display: block;
-  }
-  .form-inner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-  }
-  
-  .form-inner input,
-  .form-inner button,
-  #google-btn {
-    width: 100%;
-    max-width: 280px;
-  }
-  
-  #google-btn {
-    justify-content: center;
-  }
-  
-  .login-form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 40px;
-  }
-  .password-wrapper {
-    position: relative;
-    width: 100%;
-    max-width: 280px;
-  }
-  
-  .password-wrapper input {
-    width: 100%;
-    padding-right: 40px;
-  }
-  
-  .toggle-btn {
-    position: absolute;
-    right: 10px;
-    top: 40%;
-    transform: translateY(-50%);
-    font-size: 18px;
-    cursor: pointer;
-    color: #666;
-    user-select: none;
-  }
-  
-  .toggle-btn:hover {
-    color: #000;
-  }
-  .strength-indicator {
-    margin-top: 5px;
-    font-size: 13px;
-    font-weight: bold;
-  }
-  
-  .strength-weak {
-    color: #d9534f; /* vermelho */
-  }
-  
-  .strength-medium {
-    color: #f0ad4e; /* laranja */
-  }
-  
-  .strength-strong {
-    color: #5cb85c; /* verde */
-  }
-  .strength-container {
-    margin-top: 8px;
-    max-width: 280px;
-  }
-  
-  #strength-bars {
-    display: flex;
-    gap: 4px;
-    margin-bottom: 4px;
-  }
-  
-  .bar {
-    flex: 1;
-    height: 6px;
-    background-color: #eee;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .strength-label {
-    font-size: 13px;
-    font-weight: bold;
-    text-align: right;
-  }
-  
-  .bar.active.weak {
-    background-color: #d9534f;
-  }
-  
-  .bar.active.medium {
-    background-color: #f0ad4e;
-  }
-  
-  .bar.active.strong {
-    background-color: #5cb85c;
-  }
-  .password-hints {
-    list-style: none;
-    font-size: 12px;
-    color: #666;
-    padding-left: 0;
-    margin-top: 4px;
-  }
-  
-  .password-hints li {
-    margin-bottom: 3px;
-  }
-  
-  .password-hints li.missing {
-    color: #d9534f;
-  }
-  
-  .password-hints li.ok {
-    color: #5cb85c;
-  }
-  
-  
+  display: none;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s ease;
+}
+
+.form-section.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+label {
+  font-size: 14px;
+  margin-bottom: 4px;
+  color: #333;
+  display: block;
+}
+
+/* Senha: visibilidade */
+.password-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 280px;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding-right: 40px;
+}
+
+.toggle-btn {
+  position: absolute;
+  right: 10px;
+  top: 40%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  cursor: pointer;
+  color: #666;
+  user-select: none;
+}
+
+.toggle-btn:hover {
+  color: #000;
+}
+
+/* Barra de força da senha */
+.strength-container {
+  margin-top: 8px;
+  max-width: 280px;
+}
+
+#strength-bars {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.bar {
+  flex: 1;
+  height: 6px;
+  background-color: #eee;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.bar.active.weak {
+  background-color: #d9534f;
+}
+
+.bar.active.medium {
+  background-color: #f0ad4e;
+}
+
+.bar.active.strong {
+  background-color: #5cb85c;
+}
+
+.strength-label {
+  font-size: 13px;
+  font-weight: bold;
+  text-align: right;
+}
+
+/* Sugestões de senha */
+.password-hints {
+  list-style: none;
+  font-size: 12px;
+  color: #666;
+  padding-left: 0;
+  margin-top: 4px;
+}
+
+.password-hints li {
+  margin-bottom: 3px;
+}
+
+.password-hints li.missing {
+  color: #d9534f;
+}
+
+.password-hints li.ok {
+  color: #5cb85c;
+}

@@ -6,94 +6,98 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Container principal -->
+  <div class="container">
+
+    <!-- Formulário de autenticação -->
     <div class="login-form">
-        <div class="form-inner">
-      
-            <div class="container">
-                <!-- Lado esquerdo: formulário -->
-                <div class="login-form">
-                    <div id="form-login" class="form-section active">
-                      <h2>Log in</h2>
-                      <label for="email">Email</label>
-                      <input type="email" id="email" placeholder="Digite seu email" aria-label="Email">
-                      
-                      <label for="password">Senha</label>
-                      <div class="password-wrapper">
-                        <input type="password" id="password" placeholder="Digite sua senha" aria-label="Senha">
-                        <span onclick="togglePassword()" class="toggle-btn" aria-label="Mostrar senha">
-                            <svg id="icon-eye" xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="#555" viewBox="0 0 24 24">
-                                <!-- ícone inicial: olho fechado -->
-                                <path d="M12 4.5C7 4.5 2.73 7.61 1 12c.76 1.91 2.12 3.56 3.85 4.74L3 21l1.5 1.5 3.29-3.29C9.22 19 10.6 19.5 12 19.5c5 0 9.27-3.11 11-7.5-1.73-4.39-6-7.5-11-7.5zm0 13c-1.1 0-2.1-.3-3-.84l1.44-1.44A2.5 2.5 0 0012 15a2.5 2.5 0 002.5-2.5c0-.62-.22-1.2-.59-1.65l1.44-1.44c.54.89.84 1.9.84 3 0 2.5-2 4.5-4.5 4.5zm-8.24-3.24C4.31 13.27 3.45 12 3 12c.45-.99 1.31-2.26 2.76-3.26l1.44 1.44A4.45 4.45 0 007.5 12c0 .62.22 1.2.59 1.65L4.76 14.76zM20.49 3.51 3.51 20.49 2.1 19.07l17-17L20.49 3.51z"/>
-                            </svg>
-                        </span>
-                      </div>
-                      <p>Não tem uma conta? <a href="#" onclick="showSignup()">Cadastre-se</a></p>
-                      <button onclick="login()">Entrar</button>
-                    </div>
-                  
-                    <div id="form-signup" class="form-section">
-                        <h2>Cadastro</h2>
-                      
-                        <label for="new-email">Email</label>
-                        <input type="email" id="new-email" placeholder="Digite seu email" aria-label="Email para cadastro">
+      <div class="form-inner">
 
-                        <label for="new-password">Senha</label>
-                        <div class="strength-container">
-                            <div id="strength-bars">
-                              <span class="bar"></span>
-                              <span class="bar"></span>
-                              <span class="bar"></span>
-                              <span class="bar"></span>
-                            </div>
-                            <div id="strength-label" class="strength-label"></div>
-                          </div>
-                        <ul id="password-hints" class="password-hints"></ul>
+        <!-- Formulário de Login -->
+        <div id="form-login" class="form-section active">
+          <h2>Log in</h2>
 
-                        <div class="password-wrapper">
-                            <input type="password" id="new-password" placeholder="Crie uma senha" oninput="checkPasswordStrength()">
-                          <span onclick="toggleSignupPassword()" class="toggle-btn" aria-label="Mostrar senha">
-                            <svg id="icon-signup-eye" xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="#555" viewBox="0 0 24 24">
-                              <!-- Ícone inicial (olho fechado) -->
-                              <path d="M12 4.5C7 4.5 2.73 7.61 1 12c.76 1.91 2.12 3.56 3.85 4.74L3 21l1.5 1.5 3.29-3.29C9.22 19 10.6 19.5 12 19.5c5 0 9.27-3.11 11-7.5-1.73-4.39-6-7.5-11-7.5z"/>
-                            </svg>
-                          </span>
-                        </div>
+          <!-- Campo de email -->
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="Digite seu email" aria-label="Email">
 
-                      
-                        <label for="confirm-password">Confirmar senha</label>
-                        <input type="password" id="confirm-password" placeholder="Repita a senha" aria-label="Confirme sua senha">
-                      
-                        <button onclick="signup()">Cadastrar</button>
-                      
-                        <p>Já tem conta? <a href="#" onclick="showLogin()">Entrar</a></p>
-                      </div>
+          <!-- Campo de senha com botão de mostrar/ocultar -->
+          <label for="password">Senha</label>
+          <div class="password-wrapper">
+            <input type="password" id="password" placeholder="Digite sua senha" aria-label="Senha">
+            <span onclick="togglePassword()" class="toggle-btn" aria-label="Mostrar senha">
+              <svg id="icon-eye" xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="#555" viewBox="0 0 24 24">
+                <path d="M12 4.5C7 4.5 2.73 7.61 1 12c.76 1.91 2.12 3.56 3.85 4.74L3 21l1.5 1.5 3.29-3.29C9.22 19 10.6 19.5 12 19.5c5 0 9.27-3.11 11-7.5-1.73-4.39-6-7.5-11-7.5z"/>
+              </svg>
+            </span>
+          </div>
 
-                  
-                    <hr>
-                    <button id="google-btn" onclick="loginWithGoogle()">
-                      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
-                      Entrar com Google
-                    </button>
-                  
-                    <div id="status"></div>
-                  </div>
-                  
-                  
-            
-                <!-- Lado direito: mensagem visual -->
-                <div class="welcome-panel">
-                  <h1>Bem vindo ao mindtranslate!</h1>
-                  <p>Log in to continue</p>
-                </div>
-              </div>
-      
-          <div id="status"></div>
-      
+          <p>Não tem uma conta? <a href="#" onclick="showSignup()">Cadastre-se</a></p>
+          <button onclick="login()">Entrar</button>
         </div>
-      </div>
-      
 
-  <!-- Firebase SDK -->
+        <!-- Formulário de Cadastro -->
+        <div id="form-signup" class="form-section">
+          <h2>Cadastro</h2>
+
+          <!-- Campo de email -->
+          <label for="new-email">Email</label>
+          <input type="email" id="new-email" placeholder="Digite seu email" aria-label="Email para cadastro">
+
+          <!-- Campo de senha com barra de força e sugestões -->
+          <label for="new-password">Senha</label>
+          <div class="password-wrapper">
+            <input type="password" id="new-password" placeholder="Crie uma senha" oninput="checkPasswordStrength()">
+            <span onclick="toggleSignupPassword()" class="toggle-btn" aria-label="Mostrar senha">
+              <svg id="icon-signup-eye" xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="#555" viewBox="0 0 24 24">
+                <path d="M12 4.5C7 4.5 2.73 7.61 1 12c.76 1.91 2.12 3.56 3.85 4.74L3 21l1.5 1.5 3.29-3.29C9.22 19 10.6 19.5 12 19.5c5 0 9.27-3.11 11-7.5-1.73-4.39-6-7.5-11-7.5z"/>
+              </svg>
+            </span>
+          </div>
+
+          <!-- Barra de força -->
+          <div class="strength-container">
+            <div id="strength-bars">
+              <span class="bar"></span>
+              <span class="bar"></span>
+              <span class="bar"></span>
+              <span class="bar"></span>
+            </div>
+            <div id="strength-label" class="strength-label"></div>
+          </div>
+
+          <!-- Sugestões dinâmicas -->
+          <ul id="password-hints" class="password-hints"></ul>
+
+          <!-- Campo de confirmação de senha -->
+          <label for="confirm-password">Confirmar senha</label>
+          <input type="password" id="confirm-password" placeholder="Repita a senha" aria-label="Confirme sua senha">
+
+          <button onclick="signup()">Cadastrar</button>
+          <p>Já tem conta? <a href="#" onclick="showLogin()">Entrar</a></p>
+        </div>
+
+        <!-- Botão do Google centralizado -->
+        <div class="google-button-wrapper">
+          <button id="google-btn" onclick="loginWithGoogle()">
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+            Entrar com Google
+          </button>
+        </div>
+
+        <!-- Status de autenticação -->
+        <div id="status"></div>
+      </div>
+    </div>
+
+    <!-- Painel visual do lado direito -->
+    <div class="welcome-panel">
+      <h1>Bem vindo ao mindtranslate!</h1>
+      <p>Log in to continue</p>
+    </div>
+  </div>
+
+  <!-- Firebase SDK e app.js -->
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
   <script src="app.js"></script>

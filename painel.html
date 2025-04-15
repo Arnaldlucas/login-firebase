@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Painel protegido -->
   <h1>Bem-vindo ao Painel</h1>
   <p id="user-info">Carregando...</p>
   <button onclick="logout()">Sair</button>
@@ -13,8 +14,9 @@
   <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+
   <script>
-    // 🔐 Mesma config do seu app.js
+    // ===== CONFIG DO FIREBASE =====
     const firebaseConfig = {
       apiKey: "AIzaSyC0G3P-cpeUXHfqLiiTuvKz7YLTXIeBVfQ",
       authDomain: "mindtranslate-41310.firebaseapp.com",
@@ -24,23 +26,22 @@
       appId: "1:57544648857:web:e80241caff1cf3ba2bf008"
     };
 
-    // Inicializa Firebase
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
-    // Verifica se o usuário está logado
+    // ===== VERIFICA SE ESTÁ LOGADO =====
     auth.onAuthStateChanged(user => {
       if (user) {
-        // Usuário autenticado, mostra info
+        // Usuário autenticado: exibe email ou nome
         document.getElementById("user-info").innerText =
           `Logado como: ${user.displayName || user.email}`;
       } else {
-        // Redireciona para a página de login se não estiver logado
+        // Redireciona para tela de login se não estiver logado
         window.location.href = "index.html";
       }
     });
 
-    // Função para logout
+    // ===== FUNÇÃO DE LOGOUT =====
     function logout() {
       auth.signOut()
         .then(() => {
