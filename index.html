@@ -6,29 +6,62 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <!-- Lado esquerdo: formulário -->
     <div class="login-form">
-      <h2>Log in</h2>
-      <input type="email" id="email" placeholder="Email">
-      <input type="password" id="password" placeholder="Senha">
-      <a href="#" class="forgot">Esqueceu sua senha?</a>
-      <button onclick="login()">Entrar</button>
-      <p>Não tem uma conta? <a href="#" onclick="signup()">Cadastre-se</a></p>
-      <hr>
-      <button id="google-btn" onclick="loginWithGoogle()">
-        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
-        Entrar com Google
-      </button>
-      <div id="status"></div>
-    </div>
-
-    <!-- Lado direito: mensagem visual -->
-    <div class="welcome-panel">
-      <h1>Bem vindo ao mindtranslate!</h1>
-      <p>Log in to continue</p>
-    </div>
-  </div>
+        <div class="form-inner">
+      
+            <div class="container">
+                <!-- Lado esquerdo: formulário -->
+                <div class="login-form">
+                    <div id="form-login" class="form-section active">
+                      <h2>Log in</h2>
+                      <label for="email">Email</label>
+                      <input type="email" id="email" placeholder="Digite seu email" aria-label="Email">
+                      
+                      <label for="password">Senha</label>
+                      <input type="password" id="password" placeholder="Digite sua senha" aria-label="Senha">
+                      
+                      <p>Não tem uma conta? <a href="#" onclick="showSignup()">Cadastre-se</a></p>
+                      <button onclick="login()">Entrar</button>
+                  
+                      <p>Não tem uma conta? <a href="#" onclick="showSignup()">Cadastre-se</a></p>
+                    </div>
+                  
+                    <div id="form-signup" class="form-section">
+                      <h2>Cadastro</h2>
+                      <label for="new-email">Email</label>
+                      <input type="email" id="new-email" placeholder="Digite seu email" aria-label="Email para cadastro">
+                      
+                      <label for="new-password">Senha</label>
+                      <input type="password" id="new-password" placeholder="Crie uma senha" aria-label="Senha para cadastro">
+                      
+                      <button onclick="signup()">Cadastrar</button>
+                  
+                      <p>Já tem conta? <a href="#" onclick="showLogin()">Entrar</a></p>
+                    </div>
+                  
+                    <hr>
+                    <button id="google-btn" onclick="loginWithGoogle()">
+                      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+                      Entrar com Google
+                    </button>
+                  
+                    <div id="status"></div>
+                  </div>
+                  
+                  
+            
+                <!-- Lado direito: mensagem visual -->
+                <div class="welcome-panel">
+                  <h1>Bem vindo ao mindtranslate!</h1>
+                  <p>Log in to continue</p>
+                </div>
+              </div>
+      
+          <div id="status"></div>
+      
+        </div>
+      </div>
+      
 
   <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>

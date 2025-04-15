@@ -109,36 +109,79 @@
     opacity: 0.8;
   }
   @media (max-width: 768px) {
-    .container {
-      flex-direction: column;
-      width: 90%;
-      height: auto;
-      margin: 20px 0;
-    }
+  .container {
+    flex-direction: column;
+    width: 90%;
+    height: auto;
+    margin: 20px 0;
+  }
+
+  .login-form,
+  .welcome-panel {
+    flex: none;
+    width: 100%;
+    padding: 30px;
+  }
+
+  .welcome-panel h1 {
+    font-size: 24px;
+  }
+
+  .welcome-panel p {
+    font-size: 14px;
+  }
+
+  .login-form h2 {
+    font-size: 22px;
+  }
+
+  .login-form button,
+  #google-btn {
+    font-size: 14px;
+  }
+}
+.form-section {
+    display: none;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+  }
   
-    .login-form,
-    .welcome-panel {
-      flex: none;
-      width: 100%;
-      padding: 30px;
-    }
+  .form-section.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+  }
   
-    .welcome-panel h1 {
-      font-size: 24px;
-    }
+  label {
+    font-size: 14px;
+    margin-bottom: 4px;
+    color: #333;
+    display: block;
+  }
+  .form-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
   
-    .welcome-panel p {
-      font-size: 14px;
-    }
+  .form-inner input,
+  .form-inner button,
+  #google-btn {
+    width: 100%;
+    max-width: 280px;
+  }
   
-    .login-form h2 {
-      font-size: 22px;
-    }
+  #google-btn {
+    justify-content: center;
+  }
   
-    .login-form button,
-    #google-btn {
-      font-size: 14px;
-    }
+  .login-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
   }
   
   

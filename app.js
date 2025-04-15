@@ -32,19 +32,21 @@ const firebaseConfig = {
   
   // Função de cadastro (criação de conta)
   function signup() {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+    const email = document.getElementById("new-email").value;
+    const password = document.getElementById("new-password").value;
   
     auth.createUserWithEmailAndPassword(email, password)
       .then(userCredential => {
         const user = userCredential.user;
         document.getElementById("status").innerText = `Usuário criado: ${user.email}`;
+        showLogin(); // volta pro formulário de login
       })
       .catch(error => {
         console.error(error);
         alert("Erro no cadastro: " + error.message);
       });
   }
+  
   
   // Função de login com Google
   function loginWithGoogle() {
@@ -92,4 +94,13 @@ auth.onAuthStateChanged(user => {
       userButtons.style.display = "none";  // esconde botão de sair
     }
   });
+  function showSignup() {
+    document.getElementById("form-login").classList.remove("active");
+    document.getElementById("form-signup").classList.add("active");
+  }
+  
+  function showLogin() {
+    document.getElementById("form-signup").classList.remove("active");
+    document.getElementById("form-login").classList.add("active");
+  }
   
