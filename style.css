@@ -1,0 +1,111 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    height: 100vh;
+    background: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .container {
+    display: flex;
+    width: 800px;
+    height: 500px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  }
+  
+  .login-form {
+    flex: 1;
+    padding: 40px;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .login-form h2 {
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .login-form input {
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .login-form button {
+    padding: 12px;
+    background-color: #0033cc;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .login-form button:hover {
+    background-color: #001f80;
+  }
+  
+  .login-form a {
+    text-decoration: none;
+    color: #0033cc;
+    font-size: 14px;
+  }
+  
+  .login-form .forgot {
+    align-self: flex-end;
+    margin-bottom: 10px;
+  }
+  
+  #google-btn {
+    background: white;
+    color: #444;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+  }
+  
+  #google-btn img {
+    width: 20px;
+    height: 20px;
+  }
+  
+  /* Painel direito */
+  .welcome-panel {
+    flex: 1;
+    background: linear-gradient(135deg, #0b1e63, #001f80);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    text-align: center;
+  }
+  
+  .welcome-panel h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+  }
+  
+  .welcome-panel p {
+    font-size: 16px;
+    opacity: 0.8;
+  }
+  

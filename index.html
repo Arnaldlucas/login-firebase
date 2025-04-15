@@ -2,28 +2,35 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Login com Firebase</title>
+  <title>Login UI</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
-  <h1>Login com Firebase</h1>
-        <!-- Campos -->
-<input type="email" id="email" placeholder="Email"><br>
-<input type="password" id="password" placeholder="Senha"><br>
+  <div class="container">
+    <!-- Lado esquerdo: formulário -->
+    <div class="login-form">
+      <h2>Log in</h2>
+      <input type="email" id="email" placeholder="Email">
+      <input type="password" id="password" placeholder="Senha">
+      <a href="#" class="forgot">Esqueceu sua senha?</a>
+      <button onclick="login()">Entrar</button>
+      <p>Não tem uma conta? <a href="#" onclick="signup()">Cadastre-se</a></p>
+      <hr>
+      <button id="google-btn" onclick="loginWithGoogle()">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+        Entrar com Google
+      </button>
+      <div id="status"></div>
+    </div>
 
-  <div id="guest-buttons">
-    <button onclick="login()">Entrar</button>
-    <button onclick="signup()">Cadastrar</button>
-    <button onclick="loginWithGoogle()">Entrar com Google</button>
+    <!-- Lado direito: mensagem visual -->
+    <div class="welcome-panel">
+      <h1>Bem vindo ao mindtranslate!</h1>
+      <p>Log in to continue</p>
+    </div>
   </div>
 
-  <div id="user-buttons" style="display: none;">
-    <button onclick="logout()">Sair</button>
-  </div>
-
-  <div id="status"></div>
-
-  <!-- Firebase SDKs -->
+  <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
   <script src="app.js"></script>
