@@ -71,7 +71,7 @@ function logout() {
         alert("Erro ao sair: " + error.message);
       });
   }
-  // Detecta se o usuário já está logado (ex: ao recarregar a página)
+// Detecta se o usuário já está logado (ex: ao recarregar a página)
 auth.onAuthStateChanged(user => {
     if (user) {
       document.getElementById("status").innerText = `Usuário logado: ${user.email || user.displayName}`;
