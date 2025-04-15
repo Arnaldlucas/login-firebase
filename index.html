@@ -1,11 +1,28 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+  <meta charset="UTF-8">
+  <title>Login com Firebase</title>
 </head>
 <body>
     <button onclick="logout()">Sair</button>
+
+    
+  <h1>Login com Firebase</h1>
+
+  <div id="user-area">
+    <input type="email" id="email" placeholder="Email"><br>
+    <input type="password" id="password" placeholder="Senha"><br>
+    <button onclick="login()">Entrar</button>
+    <button onclick="signup()">Cadastrar</button>
+    <button onclick="loginWithGoogle()">Entrar com Google</button>
+  </div>
+
+  <div id="status"></div>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

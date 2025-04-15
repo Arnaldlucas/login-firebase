@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Painel do Usuário</title>
+</head>
+<body>
+  <h1>Bem-vindo ao Painel</h1>
+  <p id="user-info">Carregando...</p>
+  <button onclick="logout()">Sair</button>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script>
+    // 🔐 Mesma config do seu app.js
+    const firebaseConfig = {
+      apiKey: "AIzaSyC0G3P-cpeUXHfqLiiTuvKz7YLTXIeBVfQ",
+      authDomain: "mindtranslate-41310.firebaseapp.com",
+      projectId: "mindtranslate-41310",
+      storageBucket: "mindtranslate-41310.firebasestorage.app",
+      messagingSenderId: "57544648857",
+      appId: "1:57544648857:web:e80241caff1cf3ba2bf008"
+    };
+
+    // Inicializa Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Verifica se o usuário está logado
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        // Usuário autenticado, mostra info
+        document.getElementById("user-info").innerText =
+          `Logado como: ${user.displayName || user.email}`;
+      } else {
+        // Redireciona para a página de login se não estiver logado
+        window.location.href = "index.html";
+      }
+    });
+
+    // Função para logout
+    function logout() {
+      auth.signOut()
+        .then(() => {
+          window.location.href = "index.html";
+        })
+        .catch(error => {
+          alert("Erro ao sair: " + error.message);
+        });
+    }
+  </script>
+</body>
+</html>

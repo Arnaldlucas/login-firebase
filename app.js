@@ -79,4 +79,12 @@ auth.onAuthStateChanged(user => {
       document.getElementById("status").innerText = "Nenhum usuário logado.";
     }
   });
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      // Se o usuário já estiver logado, redireciona pro painel
+      window.location.href = "painel.html";
+    } else {
+      document.getElementById("status").innerText = "Nenhum usuário logado.";
+    }
+  });
   
