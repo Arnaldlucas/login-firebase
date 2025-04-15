@@ -5,17 +5,20 @@
   <title>Login com Firebase</title>
 </head>
 <body>
-    <button onclick="logout()">Sair</button>
-
     
   <h1>Login com Firebase</h1>
+        <!-- Campos -->
+<input type="email" id="email" placeholder="Email"><br>
+<input type="password" id="password" placeholder="Senha"><br>
 
-  <div id="user-area">
-    <input type="email" id="email" placeholder="Email"><br>
-    <input type="password" id="password" placeholder="Senha"><br>
+  <div id="guest-buttons">
     <button onclick="login()">Entrar</button>
     <button onclick="signup()">Cadastrar</button>
     <button onclick="loginWithGoogle()">Entrar com Google</button>
+  </div>
+
+  <div id="user-buttons" style="display: none;">
+    <button onclick="logout()">Sair</button>
   </div>
 
   <div id="status"></div>

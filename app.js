@@ -73,18 +73,23 @@ function logout() {
   }
 // Detecta se o usuário já está logado (ex: ao recarregar a página)
 auth.onAuthStateChanged(user => {
+    const guestButtons = document.getElementById("guest-buttons");
+    const userButtons = document.getElementById("user-buttons");
+  
     if (user) {
+      // Se estiver logado
       document.getElementById("status").innerText = `Usuário logado: ${user.email || user.displayName}`;
+      guestButtons.style.display = "none"; // esconde botões de login/cadastro
+      userButtons.style.display = "block"; // mostra botão de sair
+  
+      // Redireciona para painel (opcional, se ainda quiser)
+      // window.location.href = "painel.html";
+  
     } else {
+      // Se não estiver logado
       document.getElementById("status").innerText = "Nenhum usuário logado.";
-    }
-  });
-  auth.onAuthStateChanged(user => {
-    if (user) {
-      // Se o usuário já estiver logado, redireciona pro painel
-      window.location.href = "painel.html";
-    } else {
-      document.getElementById("status").innerText = "Nenhum usuário logado.";
+      guestButtons.style.display = "block"; // mostra login/cadastro
+      userButtons.style.display = "none";  // esconde botão de sair
     }
   });
   
