@@ -208,5 +208,58 @@
   .toggle-btn:hover {
     color: #000;
   }
+  .strength-indicator {
+    margin-top: 5px;
+    font-size: 13px;
+    font-weight: bold;
+  }
+  
+  .strength-weak {
+    color: #d9534f; /* vermelho */
+  }
+  
+  .strength-medium {
+    color: #f0ad4e; /* laranja */
+  }
+  
+  .strength-strong {
+    color: #5cb85c; /* verde */
+  }
+  .strength-container {
+    margin-top: 8px;
+    max-width: 280px;
+  }
+  
+  #strength-bars {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 4px;
+  }
+  
+  .bar {
+    flex: 1;
+    height: 6px;
+    background-color: #eee;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .strength-label {
+    font-size: 13px;
+    font-weight: bold;
+    text-align: right;
+  }
+  
+  .bar.active.weak {
+    background-color: #d9534f;
+  }
+  
+  .bar.active.medium {
+    background-color: #f0ad4e;
+  }
+  
+  .bar.active.strong {
+    background-color: #5cb85c;
+  }
   
   

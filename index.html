@@ -27,27 +27,46 @@
                             </svg>
                         </span>
                       </div>
-                      
-
-                      
                       <p>Não tem uma conta? <a href="#" onclick="showSignup()">Cadastre-se</a></p>
                       <button onclick="login()">Entrar</button>
-                  
-                      <p>Não tem uma conta? <a href="#" onclick="showSignup()">Cadastre-se</a></p>
                     </div>
                   
                     <div id="form-signup" class="form-section">
-                      <h2>Cadastro</h2>
-                      <label for="new-email">Email</label>
-                      <input type="email" id="new-email" placeholder="Digite seu email" aria-label="Email para cadastro">
+                        <h2>Cadastro</h2>
                       
-                      <label for="new-password">Senha</label>
-                      <input type="password" id="new-password" placeholder="Crie uma senha" aria-label="Senha para cadastro">
+                        <label for="new-email">Email</label>
+                        <input type="email" id="new-email" placeholder="Digite seu email" aria-label="Email para cadastro">
+
+                        <label for="new-password">Senha</label>
+                        <div class="strength-container">
+                            <div id="strength-bars">
+                              <span class="bar"></span>
+                              <span class="bar"></span>
+                              <span class="bar"></span>
+                              <span class="bar"></span>
+                            </div>
+                            <div id="strength-label" class="strength-label"></div>
+                          </div>
+                          
+                        <div class="password-wrapper">
+                            <input type="password" id="new-password" placeholder="Crie uma senha" oninput="checkPasswordStrength()">
+                          <span onclick="toggleSignupPassword()" class="toggle-btn" aria-label="Mostrar senha">
+                            <svg id="icon-signup-eye" xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="#555" viewBox="0 0 24 24">
+                              <!-- Ícone inicial (olho fechado) -->
+                              <path d="M12 4.5C7 4.5 2.73 7.61 1 12c.76 1.91 2.12 3.56 3.85 4.74L3 21l1.5 1.5 3.29-3.29C9.22 19 10.6 19.5 12 19.5c5 0 9.27-3.11 11-7.5-1.73-4.39-6-7.5-11-7.5z"/>
+                            </svg>
+                          </span>
+                        </div>
+
                       
-                      <button onclick="signup()">Cadastrar</button>
-                  
-                      <p>Já tem conta? <a href="#" onclick="showLogin()">Entrar</a></p>
-                    </div>
+                        <label for="confirm-password">Confirmar senha</label>
+                        <input type="password" id="confirm-password" placeholder="Repita a senha" aria-label="Confirme sua senha">
+                      
+                        <button onclick="signup()">Cadastrar</button>
+                      
+                        <p>Já tem conta? <a href="#" onclick="showLogin()">Entrar</a></p>
+                      </div>
+
                   
                     <hr>
                     <button id="google-btn" onclick="loginWithGoogle()">

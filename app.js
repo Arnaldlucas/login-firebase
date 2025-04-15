@@ -34,12 +34,18 @@ const firebaseConfig = {
   function signup() {
     const email = document.getElementById("new-email").value;
     const password = document.getElementById("new-password").value;
+    const confirmPassword = document.getElementById("confirm-password").value;
+  
+    if (password !== confirmPassword) {
+      alert("As senhas não coincidem.");
+      return;
+    }
   
     auth.createUserWithEmailAndPassword(email, password)
       .then(userCredential => {
         const user = userCredential.user;
         document.getElementById("status").innerText = `Usuário criado: ${user.email}`;
-        showLogin(); // volta pro formulário de login
+        showLogin(); // volta pro login
       })
       .catch(error => {
         console.error(error);
@@ -123,5 +129,60 @@ auth.onAuthStateChanged(user => {
       icon.innerHTML = closedEye;  // olho com risco
     }
   }
+  //oggle para senha do cadastro
+  function toggleSignupPassword() {
+    const input = document.getElementById("new-password");
+    const icon = document.getElementById("icon-signup-eye");
   
+    const openEye = `<path d="M12 4.5c-5 0-9.27 3.11-11 7.5 1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zm0 13c-2.5 0-4.5-2-4.5-4.5S9.5 8.5 12 8.5s4.5 2 4.5 4.5-2 4.5-4.5 4.5zm0-6.5c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>`;
+    const closedEye = `<path d="M12 4.5C7 4.5 2.73 7.61 1 12c.76 1.91 2.12 3.56 3.85 4.74L3 21l1.5 1.5 3.29-3.29C9.22 19 10.6 19.5 12 19.5c5 0 9.27-3.11 11-7.5-1.73-4.39-6-7.5-11-7.5z"/>`;
+  
+    if (input.type === "password") {
+      input.type = "text";
+      icon.innerHTML = openEye;
+    } else {
+      input.type = "password";
+      icon.innerHTML = closedEye;
+    }
+  }
+
+  //função para verificar força da senha
+  function checkPasswordStrength() {
+    const password = document.getElementById("new-password").value;
+    const bars = document.querySelectorAll(".bar");
+    const label = document.getElementById("strength-label");
+  
+    let strength = 0;
+  
+    if (password.length >= 6) strength++;
+    if (/[A-Z]/.test(password)) strength++;
+    if (/[0-9]/.test(password)) strength++;
+    if (/[\W_]/.test(password)) strength++;
+  
+    // Limpa classes
+    bars.forEach(bar => bar.className = "bar");
+  
+    // Define cor e label
+    let colorClass = "";
+    let strengthText = "";
+  
+    if (strength <= 1) {
+      colorClass = "weak";
+      strengthText = "Fraca";
+    } else if (strength === 2 || strength === 3) {
+      colorClass = "medium";
+      strengthText = "Média";
+    } else {
+      colorClass = "strong";
+      strengthText = "Forte";
+    }
+  
+    // Ativa a quantidade de barras com a cor certa
+    for (let i = 0; i < strength; i++) {
+      bars[i].classList.add("active", colorClass);
+    }
+  
+    label.textContent = `Senha ${strengthText}`;
+    label.style.color = getComputedStyle(document.querySelector(`.bar.active.${colorClass}`)).backgroundColor;
+  }
   
