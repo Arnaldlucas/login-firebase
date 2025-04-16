@@ -42,6 +42,7 @@ function signup() {
   const email = document.getElementById("new-email").value;
   const password = document.getElementById("new-password").value;
   const confirmPassword = document.getElementById("confirm-password").value;
+  const nome = document.getElementById("new-name").value;
 
   const isStrongEnough =
     password.length >= 6 &&
@@ -60,43 +61,63 @@ function signup() {
   }
 
   auth.createUserWithEmailAndPassword(email, password)
-    .then(userCredential => {
-      const user = userCredential.user;
-      window.location.href = "painel.html"; // 🔄 vai direto para o painel
-    })
-    .catch(error => {
-      console.error(error);
-      alert("Erro no cadastro: " + error.message);
+  .then(userCredential => {
+    const user = userCredential.user;
+
+    // Salva o nome no perfil do usuário
+    return user.updateProfile({
+      displayName: nome
+    }).then(() => {
+      window.location.href = "painel.html";
     });
+  })
+  .catch(error => {
+    alert("Erro no cadastro: " + error.message);
+  });
 }
 
 // ===== LOGIN COM GOOGLE =====
 function loginWithGoogle() {
+  
   const provider = new firebase.auth.GoogleAuthProvider();
+  provider.setCustomParameters({ prompt: "select_account" });
 
   auth.signInWithPopup(provider)
-  .then(result => {
-    const user = result.user;
-    window.location.href = "painel.html"; // 🔄 redireciona após login com Google
-  })
-  .catch(error => {
-    console.error(error);
-    alert("Erro no login com Google: " + error.message);
-  });
-
+    .then(result => {
+      const user = result.user;
+      window.location.href = "painel.html";
+    })
+    .catch(error => {
+      console.error(error);
+      alert("Erro no login com Google: " + error.message);
+    });
 }
 
 // ===== LOGOUT =====
 function logout() {
-  auth.signOut()
-    .then(() => {
-      document.getElementById("status").innerText = "Você saiu da conta.";
-    })
-    .catch(error => {
-      console.error(error);
-      alert("Erro ao sair: " + error.message);
-    });
+  Swal.fire({
+    title: 'Tem certeza que deseja sair?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Sair',
+    cancelButtonText: 'Cancelar',
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      auth.signOut()
+        .then(() => {
+          
+          window.location.href = "index.html";
+        })
+        .catch(error => {
+          Swal.fire("Erro ao sair", error.message, "error");
+        });
+    }
+  });
 }
+
+
 
 // ===== DETECTA MUDANÇA DE LOGIN =====
 auth.onAuthStateChanged(user => {
