@@ -271,3 +271,52 @@ label {
 .password-hints li.ok {
   color: #5cb85c;
 }
+.painel-container {
+  background: #fff;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 15px 25px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.painel-container:hover {
+  transform: translateY(-4px);
+}
+
+
+.painel-container h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.painel-container p {
+  color: #555;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.painel-container button {
+  padding: 10px 20px;
+  background-color: #0033cc;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.user-photo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 16px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.status-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: #4caf50;
+  border-radius: 50%;
+  margin-right: 6px;
+}

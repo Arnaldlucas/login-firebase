@@ -15,11 +15,16 @@
   </style>
 </head>
 <body>
-  <!-- Painel protegido -->
-  <h1>Bem-vindo ao Painel</h1>
-  <p id="user-info">Carregando...</p>
-  <button onclick="logout()">Sair</button>
-
+  <div class="painel-container">
+    <!-- FOTO DE PERFIL -->
+    <img id="user-photo" alt="Foto do usuário" class="user-photo">
+    <!-- TEXTO DE BOAS-VINDAS -->
+    <h1>Bem-vindo, <span id="user-name">...</span> 👋</h1>
+    <p id="user-email"></p>
+    <p class="status"><span class="status-dot online"></span> Online</p>
+    <button onclick="logout()">Sair</button>
+  </div>
+  
   <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
@@ -40,8 +45,12 @@
 
     auth.onAuthStateChanged(user => {
       if (user) {
-        document.getElementById("user-info").innerText =
-          `Logado como: ${user.displayName || user.email}`;
+        const photo = user.photoURL || "https://via.placeholder.com/100"; // fallback se não tiver imagem
+        document.getElementById("user-photo").src = photo;
+        document.getElementById("user-name").innerText = user.displayName || "Usuário";
+        document.getElementById("user-email").innerText = `Seu email: ${user.email}`;
+
+
       } else {
         window.location.href = "index.html";
       }
