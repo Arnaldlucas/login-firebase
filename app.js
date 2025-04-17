@@ -19,22 +19,40 @@ function login() {
   auth.signInWithEmailAndPassword(email, password)
     .then(userCredential => {
       const user = userCredential.user;
-      document.getElementById("status").innerText = `Bem-vindo, ${user.email}`;
+
+      // ✅ Verifica se o email foi confirmado antes de continuar
+      if (!user.emailVerified) {
+        Swal.fire({
+          title: "Email não verificado",
+          text: "Deseja reenviar o link de verificação?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Reenviar",
+          cancelButtonText: "Cancelar"
+        }).then(result => {
+          if (result.isConfirmed) {
+            user.sendEmailVerification()
+              .then(() => {
+                Swal.fire("Enviado!", "Verifique sua caixa de entrada.", "success");
+                auth.signOut();
+              })
+              .catch(error => {
+                Swal.fire("Erro", "Não foi possível reenviar o email: " + error.message, "error");
+              });
+          } else {
+            auth.signOut();
+          }
+        });
+
+        return; // Impede login até verificação
+      }
+
+      // Se verificado, redireciona para o painel
+      window.location.href = "painel.html";
     })
     .catch(error => {
-      console.error(error);
-      alert("Erro no login: " + error.message);
+      Swal.fire("Erro no login", error.message, "error");
     });
-    auth.signInWithEmailAndPassword(email, password)
-  .then(userCredential => {
-    const user = userCredential.user;
-    window.location.href = "painel.html"; // 🔄 redireciona após login
-  })
-  .catch(error => {
-    console.error(error);
-    alert("Erro no login: " + error.message);
-  });
-
 }
 
 // ===== CADASTRO DE USUÁRIO =====
@@ -61,24 +79,32 @@ function signup() {
   }
 
   auth.createUserWithEmailAndPassword(email, password)
-  .then(userCredential => {
-    const user = userCredential.user;
+    .then(userCredential => {
+      const user = userCredential.user;
 
-    // Salva o nome no perfil do usuário
-    return user.updateProfile({
-      displayName: nome
-    }).then(() => {
-      window.location.href = "painel.html";
+      // Salva o nome no perfil do usuário
+      return user.updateProfile({
+        displayName: nome
+      }).then(() => {
+        // Envia email de verificação e sai da conta
+        return user.sendEmailVerification().then(() => {
+          alert("Conta criada com sucesso! Verifique seu email antes de continuar.");
+          auth.signOut();
+          window.location.href = "index.html";
+        });
+      });
+    })
+    .catch(error => {
+      if (error.code === "auth/email-already-in-use") {
+        alert("Este email já está em uso. Tente fazer login ou use outro email.");
+      } else {
+        alert("Erro no cadastro: " + error.message);
+      }
     });
-  })
-  .catch(error => {
-    alert("Erro no cadastro: " + error.message);
-  });
 }
 
 // ===== LOGIN COM GOOGLE =====
 function loginWithGoogle() {
-  
   const provider = new firebase.auth.GoogleAuthProvider();
   provider.setCustomParameters({ prompt: "select_account" });
 
@@ -94,29 +120,33 @@ function loginWithGoogle() {
 }
 
 // ===== LOGOUT =====
-function logout() {
-  Swal.fire({
-    title: 'Tem certeza que deseja sair?',
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonText: 'Sair',
-    cancelButtonText: 'Cancelar',
-    confirmButtonColor: '#d33',
-    cancelButtonColor: '#3085d6'
-  }).then((result) => {
-    if (result.isConfirmed) {
-      auth.signOut()
-        .then(() => {
-          
-          window.location.href = "index.html";
-        })
-        .catch(error => {
-          Swal.fire("Erro ao sair", error.message, "error");
-        });
-    }
-  });
-}
+function uploadPhoto() {
+  const fileInput = document.getElementById("photo-upload");
+  const file = fileInput.files[0];
 
+  if (!file) {
+    return Swal.fire("Erro", "Selecione uma imagem primeiro!", "warning");
+  }
+
+  const storageRef = firebase.storage().ref();
+  const user = firebase.auth().currentUser;
+
+  const photoRef = storageRef.child(`profile_photos/${user.uid}/${file.name}`);
+
+  photoRef.put(file)
+    .then(snapshot => snapshot.ref.getDownloadURL())
+    .then(url => {
+      return user.updateProfile({ photoURL: url });
+    })
+    .then(() => {
+      document.getElementById("user-photo").src = user.photoURL;
+      Swal.fire("Foto atualizada!", "Sua foto de perfil foi alterada.", "success");
+    })
+    .catch(error => {
+      console.error(error);
+      Swal.fire("Erro ao enviar foto", error.message, "error");
+    });
+}
 
 
 // ===== DETECTA MUDANÇA DE LOGIN =====
@@ -224,4 +254,31 @@ function checkPasswordStrength() {
   label.style.color = getComputedStyle(document.querySelector(`.bar.active.${colorClass}`)).backgroundColor;
 
   hints.innerHTML = hintsList.join("");
+}
+function uploadPhoto() {
+  const fileInput = document.getElementById("photo-upload");
+  const file = fileInput.files[0];
+
+  if (!file) {
+    return Swal.fire("Erro", "Selecione uma imagem primeiro!", "warning");
+  }
+
+  const storageRef = firebase.storage().ref();
+  const user = firebase.auth().currentUser;
+
+  const photoRef = storageRef.child(`profile_photos/${user.uid}/${file.name}`);
+
+  photoRef.put(file)
+    .then(snapshot => snapshot.ref.getDownloadURL())
+    .then(url => {
+      return user.updateProfile({ photoURL: url });
+    })
+    .then(() => {
+      document.getElementById("user-photo").src = user.photoURL;
+      Swal.fire("Foto atualizada!", "Sua foto de perfil foi alterada.", "success");
+    })
+    .catch(error => {
+      console.error(error);
+      Swal.fire("Erro ao enviar foto", error.message, "error");
+    });
 }

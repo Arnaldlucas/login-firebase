@@ -16,18 +16,16 @@
         <!-- Formulário de Login -->
         <div id="form-login" class="form-section active">
           <h2>Log in</h2>
-          
-          <!-- Campo de email -->
+
           <label for="email">Email</label>
           <input type="email" id="email" placeholder="Digite seu email" aria-label="Email">
 
-          <!-- Campo de senha com botão de mostrar/ocultar -->
           <label for="password">Senha</label>
           <div class="password-wrapper">
             <input type="password" id="password" placeholder="Digite sua senha" aria-label="Senha">
             <span onclick="togglePassword()" class="toggle-btn" aria-label="Mostrar senha">
               <svg id="icon-eye" xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="#555" viewBox="0 0 24 24">
-                <path d="M12 4.5C7 4.5 2.73 7.61 1 12c.76 1.91 2.12 3.56 3.85 4.74L3 21l1.5 1.5 3.29-3.29C9.22 19 10.6 19.5 12 19.5c5 0 9.27-3.11 11-7.5-1.73-4.39-6-7.5-11-7.5z"/>
+                <path d="M12 4.5C7 4.5 2.73 7.61 1 12..."/>
               </svg>
             </span>
           </div>
@@ -39,26 +37,23 @@
         <!-- Formulário de Cadastro -->
         <div id="form-signup" class="form-section">
           <h2>Cadastro</h2>
-          <!-- Campo de nome completo -->
+
           <label for="new-name">Nome</label>
           <input type="text" id="new-name" placeholder="Seu nome completo" aria-label="Nome para exibição">
 
-          <!-- Campo de email -->
           <label for="new-email">Email</label>
           <input type="email" id="new-email" placeholder="Digite seu email" aria-label="Email para cadastro">
 
-          <!-- Campo de senha com barra de força e sugestões -->
           <label for="new-password">Senha</label>
           <div class="password-wrapper">
             <input type="password" id="new-password" placeholder="Crie uma senha" oninput="checkPasswordStrength()">
             <span onclick="toggleSignupPassword()" class="toggle-btn" aria-label="Mostrar senha">
               <svg id="icon-signup-eye" xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="#555" viewBox="0 0 24 24">
-                <path d="M12 4.5C7 4.5 2.73 7.61 1 12c.76 1.91 2.12 3.56 3.85 4.74L3 21l1.5 1.5 3.29-3.29C9.22 19 10.6 19.5 12 19.5c5 0 9.27-3.11 11-7.5-1.73-4.39-6-7.5-11-7.5z"/>
+                <path d="M12 4.5C7 4.5 2.73 7.61 1 12..."/>
               </svg>
             </span>
           </div>
 
-          <!-- Barra de força -->
           <div class="strength-container">
             <div id="strength-bars">
               <span class="bar"></span>
@@ -69,10 +64,8 @@
             <div id="strength-label" class="strength-label"></div>
           </div>
 
-          <!-- Sugestões dinâmicas -->
           <ul id="password-hints" class="password-hints"></ul>
 
-          <!-- Campo de confirmação de senha -->
           <label for="confirm-password">Confirmar senha</label>
           <input type="password" id="confirm-password" placeholder="Repita a senha" aria-label="Confirme sua senha">
 
@@ -80,7 +73,6 @@
           <p>Já tem conta? <a href="#" onclick="showLogin()">Entrar</a></p>
         </div>
 
-        <!-- Botão do Google centralizado -->
         <div class="google-button-wrapper">
           <button id="google-btn" onclick="loginWithGoogle()">
             <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
@@ -88,21 +80,21 @@
           </button>
         </div>
 
-        <!-- Status de autenticação -->
         <div id="status"></div>
       </div>
     </div>
 
-    <!-- Painel visual do lado direito -->
+    <!-- Painel visual -->
     <div class="welcome-panel">
       <h1>Bem vindo ao mindtranslate!</h1>
       <p>Log in to continue</p>
     </div>
   </div>
 
-  <!-- Firebase SDK e app.js -->
+  <!-- Firebase + JS -->
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="app.js"></script>
 </body>
 </html>

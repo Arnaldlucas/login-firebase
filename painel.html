@@ -12,22 +12,52 @@
     body.fade-out {
       opacity: 0;
     }
+    .avatar-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .user-photo {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #0033cc;
+    }
+    .upload-label {
+      background-color: #0033cc;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    .upload-label:hover {
+      background-color: #002299;
+    }
   </style>
 </head>
 <body>
   <div class="painel-container">
-    <!-- FOTO DE PERFIL -->
-    <img id="user-photo" alt="Foto do usuário" class="user-photo">
-    <!-- TEXTO DE BOAS-VINDAS -->
+    <div class="avatar-section">
+      <img id="user-photo" alt="Foto do usuário" class="user-photo">
+      <label for="photo-upload" class="upload-label">Alterar foto</label>
+      <input type="file" id="photo-upload" accept="image/*" hidden>
+    </div>
+
     <h1>Bem-vindo, <span id="user-name">...</span> 👋</h1>
     <p id="user-email"></p>
     <p class="status"><span class="status-dot online"></span> Online</p>
     <button onclick="logout()">Sair</button>
   </div>
-  
+
   <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <script>
@@ -42,15 +72,37 @@
 
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
+    const storage = firebase.storage();
 
     auth.onAuthStateChanged(user => {
       if (user) {
-        const photo = user.photoURL || "https://via.placeholder.com/100"; // fallback se não tiver imagem
-        document.getElementById("user-photo").src = photo;
+        if (!user.emailVerified && !user.providerData.some(p => p.providerId === 'google.com')) {
+          Swal.fire({
+            title: "Email não verificado",
+            text: "Verifique seu email antes de acessar o painel.",
+            icon: "warning",
+            confirmButtonText: "OK"
+          }).then(() => {
+            auth.signOut().then(() => {
+              window.location.href = "index.html";
+            });
+          });
+          return;
+        }
+
+        const photo = user.photoURL;
+        const imgElement = document.getElementById("user-photo");
+
+        if (photo) {
+          imgElement.src = photo;
+        } else {
+          const nome = user.displayName || "Usuário";
+          const avatarURL = `https://ui-avatars.com/api/?name=${encodeURIComponent(nome)}&background=random&color=fff&rounded=true&size=100`;
+          imgElement.src = avatarURL;
+        }
+
         document.getElementById("user-name").innerText = user.displayName || "Usuário";
         document.getElementById("user-email").innerText = `Seu email: ${user.email}`;
-
-
       } else {
         window.location.href = "index.html";
       }
@@ -81,8 +133,33 @@
       });
     }
 
+    function uploadPhoto() {
+      const fileInput = document.getElementById("photo-upload");
+      const file = fileInput.files[0];
+      const user = firebase.auth().currentUser;
+
+      if (!file || !user) {
+        return Swal.fire("Erro", "Selecione uma imagem primeiro!", "warning");
+      }
+
+      const photoRef = storage.ref().child(`profile_photos/${user.uid}/${file.name}`);
+
+      photoRef.put(file)
+        .then(snapshot => snapshot.ref.getDownloadURL())
+        .then(url => user.updateProfile({ photoURL: url }))
+        .then(() => {
+          document.getElementById("user-photo").src = user.photoURL;
+          Swal.fire("Foto atualizada!", "Sua foto de perfil foi alterada.", "success");
+        })
+        .catch(error => {
+          console.error(error);
+          Swal.fire("Erro ao enviar foto", error.message, "error");
+        });
+    }
+
     window.addEventListener("DOMContentLoaded", () => {
       document.body.style.opacity = "1";
+      document.getElementById("photo-upload").addEventListener("change", uploadPhoto);
     });
   </script>
 </body>
